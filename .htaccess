@@ -1,0 +1,4 @@
+RewriteEngine on
+
+RewriteRule ^Home index.php [NE,L]
+RewriteRule ^Login login.php [NE,L]
