@@ -16,23 +16,15 @@
         <ul class="metismenu left-sidenav-menu">
             <li class="menu-label mt-0">Main</li>
             <li>
-                <a href="javascript: void(0);"> <i data-feather="home" class="align-self-center menu-icon"></i><span>Dashboard</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
-                <ul class="nav-second-level" aria-expanded="false">
-                    <li class="nav-item"><a class='nav-link' href='index.html'><i class="ti-control-record"></i>Analytics</a></li>
-                    <li class="nav-item"><a class='nav-link' href='sales-index.html'><i class="ti-control-record"></i>Sales</a></li>
-                </ul>
+                <a href="Home"><i data-feather="home" class="align-self-center menu-icon"></i><span>Dashboard</span></a>
+            </li>
+            <li>
+                <a href="Employee"><i data-feather="list" class="align-self-center menu-icon"></i><span>Employee</span></a>
             </li>
 
             <li>
-                <a href="javascript: void(0);"><i data-feather="grid" class="align-self-center menu-icon"></i><span>Apps</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                <a href="javascript: void(0);"><i data-feather="grid" class="align-self-center menu-icon"></i><span>Employees</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
                 <ul class="nav-second-level" aria-expanded="false">
-                    <li>
-                        <a href="javascript: void(0);"><i class="ti-control-record"></i>Email <span class="menu-arrow left-has-menu"><i class="mdi mdi-chevron-right"></i></span></a>
-                        <ul class="nav-second-level" aria-expanded="false">
-                            <li><a href='apps-email-inbox.html'>Inbox</a></li>
-                            <li><a href='apps-email-read.html'>Read Email</a></li>
-                        </ul>
-                    </li>
                     <li class="nav-item"><a class='nav-link' href='apps-chat.html'><i class="ti-control-record"></i>Chat</a></li>
                     <li class="nav-item"><a class='nav-link' href='apps-contact-list.html'><i class="ti-control-record"></i>Contact List</a></li>
                     <li class="nav-item"><a class='nav-link' href='apps-calendar.html'><i class="ti-control-record"></i>Calendar</a></li>

@@ -34,22 +34,32 @@ if (isset($_POST['login'])) {
     } else {
         $fetch_user = $db_handle ->runQuery("SELECT * FROM `admin` WHERE `email`='$email'");
         if(count($fetch_user) == 1){
-            if (password_verify($password, $fetch_user[0]['password'])) {
-                session_start();
-                $_SESSION['admin'] = $fetch_user[0]['admin_id'];
-                echo "
-        <script>
-        document.cookie = 'alert = 1;';
-        window.location.href='Home';
-</script>
-        ";
-            } else {
+            if($fetch_user[0]['approve_status'] == '0'){
                 echo "
         <script>
         document.cookie = 'alert = 5;';
         window.location.href='Login';
 </script>
         ";
+            }
+            else {
+                if (password_verify($password, $fetch_user[0]['password'])) {
+                    session_start();
+                    $_SESSION['admin'] = $fetch_user[0]['admin_id'];
+                    echo "
+        <script>
+        document.cookie = 'alert = 1;';
+        window.location.href='Home';
+</script>
+        ";
+                } else {
+                    echo "
+        <script>
+        document.cookie = 'alert = 5;';
+        window.location.href='Login';
+</script>
+        ";
+                }
             }
         } else {
             echo "

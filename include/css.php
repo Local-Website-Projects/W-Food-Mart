@@ -8,6 +8,12 @@
 <!-- jvectormap -->
 <link href="plugins/jvectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet">
 
+<!-- DataTables -->
+<link href="plugins/datatables/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+<link href="plugins/datatables/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+<!-- Responsive datatable examples -->
+<link href="plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
 <!-- App css -->
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
