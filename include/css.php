@@ -14,3 +14,5 @@
 <link href="assets/css/metisMenu.min.css" rel="stylesheet" type="text/css" />
 <link href="plugins/daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" />
 <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+
+<link href="vendor/toaster/css/toastr.min.css" rel="stylesheet" type="text/css"/>

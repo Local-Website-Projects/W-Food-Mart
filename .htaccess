@@ -2,3 +2,5 @@ RewriteEngine on
 
 RewriteRule ^Home index.php [NE,L]
 RewriteRule ^Login login.php [NE,L]
+RewriteRule ^Logout logout.php [NE,L]
+RewriteRule ^Insert insert.php [NE,L]

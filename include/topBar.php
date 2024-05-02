@@ -12,7 +12,7 @@
                     <a class='dropdown-item' href='pages-profile.html'><i data-feather="user" class="align-self-center icon-xs icon-dual me-1"></i> Profile</a>
                     <a class='dropdown-item' href='apps-contact-list.html'><i data-feather="users" class="align-self-center icon-xs icon-dual me-1"></i> Contacts</a>
                     <div class="dropdown-divider mb-0"></div>
-                    <a class='dropdown-item' href='auth-login.html'><i data-feather="power" class="align-self-center icon-xs icon-dual me-1"></i> Logout</a>
+                    <a class='dropdown-item' href='Logout'><i data-feather="power" class="align-self-center icon-xs icon-dual me-1"></i> Logout</a>
                 </div>
             </li>
         </ul><!--end topbar-nav-->

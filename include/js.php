@@ -12,5 +12,9 @@
 <script src="plugins/jvectormap/jquery-jvectormap-us-aea-en.js"></script>
 <script src="assets/pages/jquery.analytics_dashboard.init.js"></script>
 
+
+<script src="vendor/toaster/js/toastr.min.js"></script>
+<script src="plugins/toastr-init.js"></script>
+
 <!-- App js -->
 <script src="assets/js/app.js"></script>
