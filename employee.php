@@ -128,7 +128,9 @@ if(isset($_GET['d_active'])){
                                         <td><?php echo $fetch_admin[$i]['name'];?></td>
                                         <td><?php echo $fetch_admin[$i]['email'];?></td>
                                         <td><?php echo $fetch_admin[$i]['post'];?></td>
-                                        <td><?php echo $fetch_admin[$i]['joining_date'];?></td>
+                                        <td><?php $joiningDate = $fetch_admin[$i]['joining_date'];
+                                            $formattedDate = date("d M, Y", strtotime($joiningDate));
+                                            echo $formattedDate;?></td>
                                         <td><?php echo $fetch_admin[$i]['phone'];?></td>
                                         <td><?php  if($fetch_admin[$i]['user_type'] == '1') echo 'Super Admin';
                                             if($fetch_admin[$i]['user_type'] == '2') echo 'Stock Manager';

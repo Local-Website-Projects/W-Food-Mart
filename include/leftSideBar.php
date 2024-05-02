@@ -21,6 +21,9 @@
             <li>
                 <a href="Employee"><i data-feather="list" class="align-self-center menu-icon"></i><span>Employee</span></a>
             </li>
+            <li>
+                <a href="Category"><i data-feather="grid" class="align-self-center menu-icon"></i><span>Category</span></a>
+            </li>
 
             <li>
                 <a href="javascript: void(0);"><i data-feather="grid" class="align-self-center menu-icon"></i><span>Employees</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
@@ -199,14 +202,5 @@
                 </ul>
             </li>
         </ul>
-
-        <div class="update-msg text-center">
-            <a href="javascript: void(0);" class="float-end close-btn text-muted" data-dismiss="update-msg" aria-label="Close" aria-hidden="true">
-                <i class="mdi mdi-close"></i>
-            </a>
-            <h5 class="mt-3">Mannat Themes</h5>
-            <p class="mb-3">We Design and Develop Clean and High Quality Web Applications</p>
-            <a href="javascript: void(0);" class="btn btn-outline-warning btn-sm">Upgrade your plan</a>
-        </div>
     </div>
 </div>

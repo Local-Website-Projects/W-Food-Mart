@@ -29,3 +29,26 @@ if(isset($_POST['admin_approve'])){
         ";
     }
 }
+
+
+if(isset($_POST['edit_category'])){
+    $category_id = $db_handle->checkValue($_POST['category_id']);
+    $category_name = $db_handle->checkValue($_POST['category_name']);
+
+    $update_category = $db_handle->insertQuery("UPDATE `category` SET `category_name`='$category_name',`updated_at`='$updated_at' WHERE `category_id` = '$category_id'");
+    if($update_category){
+        echo "
+        <script>
+        document.cookie = 'alert = 4;';
+        window.location.href='Category';
+</script>
+        ";
+    } else {
+        echo "
+        <script>
+        document.cookie = 'alert = 5;';
+        window.location.href='Category';
+</script>
+        ";
+    }
+}
