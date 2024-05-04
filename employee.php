@@ -5,6 +5,14 @@ $db_handle = new DBController();
 date_default_timezone_set("Asia/Dhaka");
 $inserted_at = date("Y-m-d H:i:s");
 
+if(!isset($_SESSION['admin'])){
+    echo "
+    <script>
+    window.location.href = 'Login';
+    </script>
+    ";
+}
+
 if(isset($_GET['d_active'])){
     $update_admin = $db_handle->insertQuery("UPDATE `admin` SET`approve_status`='0',`updated_at`='$inserted_at' WHERE `admin_id` = {$_GET['d_active']}");
     if($update_admin){

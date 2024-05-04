@@ -14,6 +14,8 @@
 <!-- Responsive datatable examples -->
 <link href="plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 
+<link href="plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />
+
 <!-- App css -->
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />

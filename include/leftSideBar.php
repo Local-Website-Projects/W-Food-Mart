@@ -24,6 +24,9 @@
             <li>
                 <a href="Category"><i data-feather="grid" class="align-self-center menu-icon"></i><span>Category</span></a>
             </li>
+            <li>
+                <a href="Product"><i data-feather="list" class="align-self-center menu-icon"></i><span>Product</span></a>
+            </li>
 
             <li>
                 <a href="javascript: void(0);"><i data-feather="grid" class="align-self-center menu-icon"></i><span>Employees</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>

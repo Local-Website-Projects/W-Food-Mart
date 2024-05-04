@@ -34,5 +34,8 @@
 <script src="vendor/toaster/js/toastr.min.js"></script>
 <script src="plugins/toastr-init.js"></script>
 
+<script src="plugins/select2/select2.min.js"></script>
+<script src="assets/pages/jquery.forms-advanced.js"></script>
+
 <!-- App js -->
 <script src="assets/js/app.js"></script>
