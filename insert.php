@@ -38,11 +38,12 @@ if(isset($_POST['add_category'])){
 
 if(isset($_POST['add_product'])){
     $product_name = $db_handle->checkValue($_POST['product_name']);
+    $product_code = $db_handle->checkValue($_POST['product_code']);
     $product_cat = $db_handle->checkValue($_POST['product_cat']);
     $product_varieties = $db_handle->checkValue($_POST['product_varieties']);
     $company_name = $db_handle->checkValue($_POST['company_name']);
 
-    $insert_product = $db_handle->insertQuery("INSERT INTO `product`(`product_name`, `cat_id`, `variety`, `company_name`, `inserted_at`) VALUES ('$product_name','$product_cat','$product_varieties','$company_name','$inserted_at')");
+    $insert_product = $db_handle->insertQuery("INSERT INTO `product`(`product_name`,`product_code`, `cat_id`, `variety`, `company_name`, `inserted_at`) VALUES ('$product_name','$product_code','$product_cat','$product_varieties','$company_name','$inserted_at')");
     if($insert_product){
         echo "
         <script>
@@ -55,6 +56,32 @@ if(isset($_POST['add_product'])){
         <script>
         document.cookie = 'alert = 5;';
         window.location.href='Product';
+</script>
+        ";
+    }
+}
+
+
+if(isset($_POST['add_primary_stock'])){
+    $product_id = $db_handle->checkValue($_POST['product_id']);
+    $stock_in_quantity = $db_handle->checkValue($_POST['stock_in_quantity']);
+    $purchase_price = $db_handle->checkValue($_POST['purchase_price']);
+    $selling_price = $db_handle->checkValue($_POST['selling_price']);
+    $stock_in_date = $db_handle->checkValue($_POST['stock_in_date']);
+
+    $add_primary_stock = $db_handle->insertQuery("INSERT INTO `primary_stock`(`product_id`, `quantity`, `buying_cost`, `selling_cost`, `date`, `inserted_at`) VALUES ('$product_id','$stock_in_quantity','$purchase_price','$selling_price','$stock_in_date','$inserted_at')");
+    if($add_primary_stock){
+        echo "
+        <script>
+        document.cookie = 'alert = 4;';
+        window.location.href='Stock';
+</script>
+        ";
+    } else {
+        echo "
+        <script>
+        document.cookie = 'alert = 5;';
+        window.location.href='Stock';
 </script>
         ";
     }

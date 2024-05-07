@@ -97,6 +97,12 @@ if (isset($_GET['update'])) {
                                         <label for="floatingInput">Product Name</label>
                                     </div>
                                     <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="product_code"
+                                               placeholder="Product Code" name="product_code" required>
+                                        <label for="floatingInput">Product Code</label>
+                                        <span id="code_status" style="color: red; display: none;">This code is already in use.</span>
+                                    </div>
+                                    <div class="form-floating mb-3">
                                         <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" name="product_cat" required>
                                             <option selected disabled>Choose Product Category</option>
                                             <?php
@@ -119,7 +125,7 @@ if (isset($_GET['update'])) {
                                             <label for="floatingInput">Company Name</label>
                                         </div>
                                     </div>
-                                    <button type="submit" name="add_product" class="btn btn-primary">Add Product
+                                    <button type="submit" name="add_product" id="add_product_button" class="btn btn-primary">Add Product
                                     </button>
                                 </form>
                                 <!-- Tab panes -->
@@ -215,6 +221,7 @@ if (isset($_GET['update'])) {
                                 <tr>
                                     <th>Sl No</th>
                                     <th>Product Name</th>
+                                    <th>Product Code</th>
                                     <th>Category Name</th>
                                     <th>Varieties</th>
                                     <th>Company Name</th>
@@ -231,6 +238,7 @@ if (isset($_GET['update'])) {
                                     <tr>
                                         <td><?php echo $i + 1; ?></td>
                                         <td><?php echo $fetch_product[$i]['product_name']; ?></td>
+                                        <td><?php echo $fetch_product[$i]['product_code']; ?></td>
                                         <td><?php echo $fetch_product[$i]['category_name']; ?></td>
                                         <td><?php echo $fetch_product[$i]['variety']; ?></td>
                                         <td><?php echo $fetch_product[$i]['company_name']; ?></td>
@@ -279,6 +287,29 @@ if (isset($_GET['update'])) {
 
 <!-- jQuery  -->
 <?php include('include/js.php'); ?>
+
+<script>
+    $(document).ready(function () {
+        $('#product_code').on('input', function () {
+            var code = $(this).val();
+            // Make AJAX request to check if the code exists in the database
+            $.ajax({
+                type: 'POST',
+                url: 'check_code.php', // Replace 'check_code.php' with the URL of your server-side script
+                data: {code: code},
+                success: function (response) {
+                    if (response === 'exists') {
+                        $('#code_status').show();
+                        $('#add_product_button').prop('disabled', true);
+                    } else {
+                        $('#code_status').hide();
+                        $('#add_product_button').prop('disabled', false);
+                    }
+                }
+            });
+        });
+    });
+</script>
 
 </body>
 

@@ -86,3 +86,8 @@ if(isset($_POST['edit_product'])){
         ";
     }
 }
+
+
+if(isset($_POST['edit_primary_stock'])){
+    $p_stock_id = $db_handle->checkValue($_POST['p_stock_id']);
+}
