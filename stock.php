@@ -112,7 +112,8 @@ if (isset($_GET['update'])) {
                                                required>
                                         <label for="floatingInput">Selling Cost</label>
                                     </div>
-                                    <button type="submit" name="edit_primary_stock" class="btn btn-primary">Edit Category
+                                    <button type="submit" name="edit_primary_stock" class="btn btn-primary">Edit
+                                        Stock Data
                                     </button>
                                 </form>
 
@@ -120,6 +121,37 @@ if (isset($_GET['update'])) {
                         </div>
                     </div>
                 </div>
+                <?php
+
+            } elseif (isset($_GET['transfer'])) {
+                ?>
+                <form class="mb-5" action="Insert" method="post">
+                    <?php
+                    $inQuantity = $db_handle->runQuery("select * from primary_stock where p_stock_id = {$_GET['transfer']}");
+                    $stock_in = $inQuantity[0]['quantity'];
+
+                    $outQuantity = $db_handle->runQuery("select SUM(quantity) as q from shop_stock where stock_id = {$_GET['transfer']}");
+                    if(count($outQuantity) > 0){
+                        $remains = $stock_in - $outQuantity[0]['q'];
+                    } else {
+                        $remains = $stock_in;
+                    }
+                    ?>
+                    <input type="hidden" value="<?php echo $_GET['transfer']; ?>" name="stock_id">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="availableStock" value="<?php echo $remains;?>" required readonly>
+                        <label for="availableStock">Stock Available for Transfer</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="transferQuantity" name="transfer_quantity" required>
+                        <label for="transferQuantity">Transfer Quantity</label>
+                        <span id="quantityError" style="color: red; display: none;">Transfer quantity cannot exceed available stock.</span>
+                    </div>
+
+                    <button type="submit" id="transferButton" name="transfer_primary_stock" class="btn btn-primary">Transfer To Shop</button>
+
+                </form>
                 <?php
             } else {
                 ?>
@@ -133,36 +165,42 @@ if (isset($_GET['update'])) {
                                 <form action="Insert" method="post">
                                     <div class="form-floating mb-3">
                                         <label class="mb-3">Product Code</label>
-                                        <select class="select2 form-control mb-3 custom-select" name="product_id" required
+                                        <select class="select2 form-control mb-3 custom-select" name="product_id"
+                                                required
                                                 style="width: 100%; height:36px;">
                                             <option disabled selected>Select Product Code</option>
                                             <?php
                                             $fetch_code = $db_handle->runQuery("select * from product order by product_name ASC");
                                             for ($i = 0; $i < count($fetch_code); $i++) {
                                                 ?>
-                                                <option value="<?php echo $fetch_code[$i]['product_id'];?>"><?php echo $fetch_code[$i]['product_code'];?></option>
+                                                <option value="<?php echo $fetch_code[$i]['product_id']; ?>"><?php echo $fetch_code[$i]['product_code']; ?></option>
                                                 <?php
                                             }
                                             ?>
                                         </select>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="number" class="form-control" id="floatingInput" name="stock_in_quantity" required>
+                                        <input type="number" class="form-control" id="floatingInput"
+                                               name="stock_in_quantity" required>
                                         <label for="floatingInput">Stock In Quantity</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="floatingInput" name="purchase_price" required>
+                                        <input type="text" class="form-control" id="floatingInput" name="purchase_price"
+                                               required>
                                         <label for="floatingInput">Purchase Price</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="floatingInput" name="selling_price" required>
+                                        <input type="text" class="form-control" id="floatingInput" name="selling_price"
+                                               required>
                                         <label for="floatingInput">Selling Price</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="date" class="form-control" id="floatingInput" name="stock_in_date" required>
+                                        <input type="date" class="form-control" id="floatingInput" name="stock_in_date"
+                                               required>
                                         <label for="floatingInput">Stock In Date</label>
                                     </div>
-                                    <button type="submit" name="add_primary_stock" class="btn btn-primary mt-3">Submit</button>
+                                    <button type="submit" name="add_primary_stock" class="btn btn-primary mt-3">Submit
+                                    </button>
                                 </form>
                             </div>
                         </div>
@@ -187,7 +225,9 @@ if (isset($_GET['update'])) {
                                     <th>Sl No</th>
                                     <th>Product Name</th>
                                     <th>Product Code</th>
-                                    <th>Quantity</th>
+                                    <th>Stock In Quantity</th>
+                                    <th>Transfer Quantity</th>
+                                    <th>Remaining Stock</th>
                                     <th>Stock In Date</th>
                                     <th>Action</th>
                                 </tr>
@@ -203,6 +243,16 @@ if (isset($_GET['update'])) {
                                         <td><?php echo $fetch_stock[$i]['product_name']; ?></td>
                                         <td><?php echo $fetch_stock[$i]['product_code']; ?></td>
                                         <td><?php echo $fetch_stock[$i]['quantity']; ?></td>
+                                        <?php
+                                        $transfer = $db_handle->runQuery("select SUM(quantity) as qty from shop_stock where stock_id = {$fetch_stock[0]['p_stock_id']}");
+                                        if(count($transfer) > 0){
+                                            $t = $transfer[0]['qty'];
+                                        } else {
+                                            $t = 0;
+                                        }
+                                        ?>
+                                        <td><?php echo $t;?></td>
+                                        <td><?php echo $fetch_stock[$i]['quantity'] - $t;?></td>
                                         <td><?php $dateString = $fetch_stock[$i]['date'];
                                             $timestamp = strtotime($dateString);
                                             $formattedDate = date('d M, Y', $timestamp);
@@ -211,6 +261,9 @@ if (isset($_GET['update'])) {
                                             <a href="Stock?edit=<?php echo $fetch_stock[$i]['p_stock_id']; ?>"
                                                class="btn btn-sm btn-soft-success btn-circle me-2"><i
                                                         class="dripicons-pencil"></i></a>
+                                            <a href="Stock?transfer=<?php echo $fetch_stock[$i]['p_stock_id']; ?>"
+                                               class="btn btn-sm btn-soft-success btn-circle me-2"><i
+                                                        class="dripicons-ticket"></i></a>
                                         </td>
                                     </tr>
                                     <?php
@@ -236,6 +289,21 @@ if (isset($_GET['update'])) {
 
 <!-- jQuery  -->
 <?php include('include/js.php'); ?>
+
+<script>
+    document.getElementById('transferQuantity').addEventListener('input', function() {
+        var availableStock = parseInt(document.getElementById('availableStock').value);
+        var transferQuantity = parseInt(document.getElementById('transferQuantity').value);
+
+        if (transferQuantity > availableStock) {
+            document.getElementById('quantityError').style.display = 'block';
+            document.getElementById('transferButton').disabled = true;
+        } else {
+            document.getElementById('quantityError').style.display = 'none';
+            document.getElementById('transferButton').disabled = false;
+        }
+    });
+</script>
 
 </body>
 

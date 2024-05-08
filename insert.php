@@ -86,3 +86,26 @@ if(isset($_POST['add_primary_stock'])){
         ";
     }
 }
+
+
+if(isset($_POST['transfer_primary_stock'])){
+    $stock_id = $db_handle->checkValue($_POST['stock_id']);
+    $transfer_quantity = $db_handle->checkValue($_POST['transfer_quantity']);
+
+    $transfer_to_shop = $db_handle->insertQuery("INSERT INTO `shop_stock`(`stock_id`, `quantity`, `date`, `inserted_at`) VALUES ('$stock_id','$transfer_quantity','$today','$inserted_at')");
+    if($transfer_to_shop){
+        echo "
+        <script>
+        document.cookie = 'alert = 4;';
+        window.location.href='Stock';
+</script>
+        ";
+    } else {
+        echo "
+        <script>
+        document.cookie = 'alert = 5;';
+        window.location.href='Stock';
+</script>
+        ";
+    }
+}
