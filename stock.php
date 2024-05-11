@@ -244,8 +244,8 @@ if (isset($_GET['update'])) {
                                         <td><?php echo $fetch_stock[$i]['product_code']; ?></td>
                                         <td><?php echo $fetch_stock[$i]['quantity']; ?></td>
                                         <?php
-                                        $transfer = $db_handle->runQuery("select SUM(quantity) as qty from shop_stock where stock_id = {$fetch_stock[0]['p_stock_id']}");
-                                        if(count($transfer) > 0){
+                                        $transfer = $db_handle->runQuery("select SUM(quantity) as qty from shop_stock where stock_id = {$fetch_stock[$i]['p_stock_id']}");
+                                        if($transfer[0]['qty'] != null){
                                             $t = $transfer[0]['qty'];
                                         } else {
                                             $t = 0;

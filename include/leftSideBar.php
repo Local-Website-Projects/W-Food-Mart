@@ -30,6 +30,9 @@
             <li>
                 <a href="Stock"><i data-feather="list" class="align-self-center menu-icon"></i><span>Stock</span></a>
             </li>
+            <li>
+                <a href="Primary-Stock"><i data-feather="box" class="align-self-center menu-icon"></i><span>Primary Stock Quantity</span></a>
+            </li>
 
             <li>
                 <a href="javascript: void(0);"><i data-feather="grid" class="align-self-center menu-icon"></i><span>Employees</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
