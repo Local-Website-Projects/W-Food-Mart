@@ -106,7 +106,7 @@ if (isset($_GET['update'])) {
                                         <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" name="product_cat" required>
                                             <option selected disabled>Choose Product Category</option>
                                             <?php
-                                            $fetch_cat = $db_handle->runQuery("select * from category order by category_name ASC");
+                                            $fetch_cat = $db_handle->runQuery("select * from category where status != 0 order by category_name ASC");
                                             for ($i=0; $i < count($fetch_cat); $i++) {
                                                 ?>
                                                 <option value="<?php echo $fetch_cat[0]['category_id'];?>"><?php echo $fetch_cat[0]['category_name'];?></option>
@@ -175,7 +175,7 @@ if (isset($_GET['update'])) {
                                         }
                                         ?>
                                         <?php
-                                        $fetch_cat = $db_handle->runQuery("select * from category order by category_name ASC");
+                                        $fetch_cat = $db_handle->runQuery("select * from category where status != 0 order by category_name ASC");
                                         for ($i=0; $i < count($fetch_cat); $i++) {
                                             ?>
                                             <option value="<?php echo $fetch_cat[0]['category_id'];?>"><?php echo $fetch_cat[0]['category_name'];?></option>

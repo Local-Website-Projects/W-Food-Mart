@@ -91,7 +91,7 @@ if (isset($_GET['update'])) {
                             <div class="card-body">
                                 <form action="Update" method="post">
                                     <?php
-                                    $stock_data = $db_handle->runQuery("select * from primary_stock where p_stock_id = 1");
+                                    $stock_data = $db_handle->runQuery("select * from primary_stock where p_stock_id = {$_GET['edit']}");
                                     ?>
                                     <input type="hidden" value="<?php echo $_GET['edit']; ?>" name="p_stock_id">
                                     <div class="form-floating mb-3">
@@ -170,7 +170,7 @@ if (isset($_GET['update'])) {
                                                 style="width: 100%; height:36px;">
                                             <option disabled selected>Select Product Code</option>
                                             <?php
-                                            $fetch_code = $db_handle->runQuery("select * from product order by product_name ASC");
+                                            $fetch_code = $db_handle->runQuery("select * from product where status != 0 order by product_name ASC");
                                             for ($i = 0; $i < count($fetch_code); $i++) {
                                                 ?>
                                                 <option value="<?php echo $fetch_code[$i]['product_id']; ?>"><?php echo $fetch_code[$i]['product_code']; ?></option>
