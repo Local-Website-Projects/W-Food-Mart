@@ -12,13 +12,34 @@ if (!isset($_SESSION['admin'])) {
     </script>
     ";
 }
+
+if(isset($_GET['accept'])){
+    $accept_stock = $db_handle->insertQuery("UPDATE `shop_stock` SET `status`='1',`updated_at`='$inserted_at' WHERE `shop_stock_id` = {$_GET['accept']}");
+    if($accept_stock){
+        echo "
+        <script>
+        document.cookie = 'alert = 4;';
+        window.location.href='Shop-Stock';
+</script>
+        ";
+    } else {
+        echo "
+        <script>
+        document.cookie = 'alert = 5;';
+        window.location.href='Shop-Stock';
+</script>
+        ";
+    }
+}
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Food Mart - Primary Stock Status</title>
+    <title>Food Mart - Shop Stock Status</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <?php include('include/css.php'); ?>
 </head>
@@ -55,7 +76,7 @@ if (!isset($_SESSION['admin'])) {
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Primary Stock Data</h4>
+                            <h4 class="card-title">Shop Stock Data</h4>
                         </div><!--end card-header-->
                         <div class="card-body">
                             <table id="datatable-buttons"
@@ -66,53 +87,57 @@ if (!isset($_SESSION['admin'])) {
                                     <th>Sl No</th>
                                     <th>Product Name</th>
                                     <th>Product Code</th>
-                                    <th>Stock In Quantity</th>
-                                    <th>Transfer Quantity</th>
+                                    <th>Stock Transfer Quantity</th>
+                                    <th>Sell Quantity</th>
                                     <th>Remaining Stock</th>
                                     <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
-                                $fetch_stock = $db_handle->runQuery("SELECT * FROM `primary_stock`, `product` WHERE primary_stock.product_id = product.product_id order by primary_stock.p_stock_id DESC");
+                                $fetch_shop_products = $db_handle->runQuery("SELECT shop_stock.quantity, shop_stock_id, product_name,product_code,variety,shop_stock.status FROM `shop_stock`,`product`,`primary_stock` WHERE shop_stock.stock_id = primary_stock.p_stock_id and primary_stock.product_id = product.product_id order by shop_stock_id DESC");
 
-                                for ($i = 0; $i < count($fetch_stock); $i++) {
+                                for ($i = 0; $i < count($fetch_shop_products); $i++) {
                                     ?>
                                     <tr>
                                         <td><?php echo $i + 1; ?></td>
-                                        <td><?php echo $fetch_stock[$i]['product_name']; ?></td>
-                                        <td><?php echo $fetch_stock[$i]['product_code']; ?></td>
-                                        <?php
-                                        $total = $db_handle->runQuery("select SUM(quantity) as qty from primary_stock WHERE p_stock_id = {$fetch_stock[$i]['p_stock_id']} group by product_id");
-                                        ?>
-                                        <td><?php echo $total[0]['qty']; ?></td>
-                                        <?php
-                                        $transfer = $db_handle->runQuery("select SUM(quantity) as qty from shop_stock where stock_id = {$fetch_stock[$i]['p_stock_id']}");
-                                        if($transfer[0]['qty'] != null){
-                                            $t = $transfer[0]['qty'];
-                                        } else {
-                                            $t = 0;
-                                        }
-                                        ?>
-                                        <td><?php echo $t;?></td>
-                                        <td><?php echo $total[0]['qty'] - $t;?></td>
+                                        <td><?php echo $fetch_shop_products[$i]['product_name']; ?></td>
+                                        <td><?php echo $fetch_shop_products[$i]['product_code']; ?></td>
+                                        <td><?php echo $fetch_shop_products[$i]['quantity']; ?></td>
+                                        <td>10</td>
+                                        <td>18</td>
                                         <td class="text-right">
+                                            <span class="badge badge-boxed  badge-outline-success">In Stock</span>
                                             <?php
-                                            if(($total[0]['qty'] - $t) > 10){
-                                                ?>
+/*                                            if(($total[0]['qty'] - $t) > 10){
+                                                */?><!--
                                                 <span class="badge badge-boxed  badge-outline-success">In Stock</span>
                                                 <?php
-                                            } if (($total[0]['qty'] - $t) < 10 && ($total[0]['qty'] - $t) != 0) {
-                                                ?>
+/*                                            } elseif (($total[0]['qty'] - $t) < 10 && $total[0]['qty'] != 0) {
+                                                */?>
                                                 <span class="badge badge-boxed  badge-outline-warning">Almost Stock Out</span>
                                                 <?php
-                                            } if(($total[0]['qty'] - $t) == 0) {
+/*                                            } else {
+                                                */?>
+                                                <span class="badge badge-boxed  badge-outline-danger">Stock Out</span>
+                                                --><?php
+/*                                            }
+                                            */?>
+                                        </td>
+                                        <td>
+                                            <?php
+                                            if($fetch_shop_products[$i]['status'] == 0){
                                                 ?>
-                                                <span class="badge badge-boxed  badge-outline-danger">Out of Stock</span>
+                                                <a href="Shop-Stock?accept=<?php echo $fetch_shop_products[$i]['shop_stock_id'];?>"><i class="fas fa-check"></i></a>
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <span class="badge badge-boxed  badge-outline-success">Accepted</span>
                                                 <?php
                                             }
                                             ?>
-                                        </td>
+                                            </td>
                                     </tr>
                                     <?php
                                 }

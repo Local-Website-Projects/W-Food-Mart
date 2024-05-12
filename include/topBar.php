@@ -9,8 +9,7 @@
                     <img src="assets/images/users/user-5.jpg" alt="profile-user" class="rounded-circle thumb-xs" />
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <a class='dropdown-item' href='pages-profile.html'><i data-feather="user" class="align-self-center icon-xs icon-dual me-1"></i> Profile</a>
-                    <a class='dropdown-item' href='apps-contact-list.html'><i data-feather="users" class="align-self-center icon-xs icon-dual me-1"></i> Contacts</a>
+                    <a class='dropdown-item' href='Profile'><i data-feather="user" class="align-self-center icon-xs icon-dual me-1"></i> Profile</a>
                     <div class="dropdown-divider mb-0"></div>
                     <a class='dropdown-item' href='Logout'><i data-feather="power" class="align-self-center icon-xs icon-dual me-1"></i> Logout</a>
                 </div>
