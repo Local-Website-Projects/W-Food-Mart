@@ -145,3 +145,26 @@ if (isset($_POST['update_password'])) {
         ";
     }
 }
+
+
+if(isset($_POST['edit_customer'])){
+    $customer_id = $db_handle->checkValue($_POST['customer_id']);
+    $customer_name = $db_handle->checkValue($_POST['customer_name']);
+    $customer_phone = $db_handle->checkValue($_POST['customer_phone']);
+    $update_customer = $db_handle->insertQuery("UPDATE `customer_data` SET `customer_name`='$customer_name',`contact_phone`='$customer_phone',`updated_at`='$updated_at' WHERE `customer_id` = '$customer_id'");
+    if($update_customer){
+        echo "
+        <script>
+        document.cookie = 'alert = 4;';
+        window.location.href='Customer';
+</script>
+        ";
+    } else {
+        echo "
+        <script>
+        document.cookie = 'alert = 5;';
+        window.location.href='Customer';
+</script>
+        ";
+    }
+}

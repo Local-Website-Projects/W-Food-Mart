@@ -109,7 +109,7 @@ if (isset($_GET['update'])) {
                                             $fetch_cat = $db_handle->runQuery("select * from category where status != 0 order by category_name ASC");
                                             for ($i=0; $i < count($fetch_cat); $i++) {
                                                 ?>
-                                                <option value="<?php echo $fetch_cat[0]['category_id'];?>"><?php echo $fetch_cat[0]['category_name'];?></option>
+                                                <option value="<?php echo $fetch_cat[$i]['category_id'];?>"><?php echo $fetch_cat[$i]['category_name'];?></option>
                                                 <?php
                                             }
                                             ?>
@@ -117,7 +117,7 @@ if (isset($_GET['update'])) {
                                         <div class="form-floating mb-3 mt-3">
                                             <input type="text" class="form-control" id="floatingInput"
                                                    placeholder="Product Varieties" name="product_varieties" required>
-                                            <label for="floatingInput">Product Varieties (Seperated with Comma)</label>
+                                            <label for="floatingInput">Product Variety</label>
                                         </div>
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="floatingInput"

@@ -109,3 +109,25 @@ if(isset($_POST['transfer_primary_stock'])){
         ";
     }
 }
+
+
+if(isset($_POST['add_customer'])){
+    $customer_name = $db_handle->checkValue($_POST['customer_name']);
+    $contact_no = $db_handle->checkValue($_POST['contact_no']);
+    $insert_customer = $db_handle->insertQuery("INSERT INTO `customer_data`(`customer_name`, `contact_phone`, `inserted_at`) VALUES ('$customer_name','$contact_no','$inserted_at')");
+    if($insert_customer){
+        echo "
+        <script>
+        document.cookie = 'alert = 4;';
+        window.location.href='Customer';
+</script>
+        ";
+    } else {
+        echo "
+        <script>
+        document.cookie = 'alert = 5;';
+        window.location.href='Customer';
+</script>
+        ";
+    }
+}

@@ -36,6 +36,9 @@
             <li>
                 <a href="Shop-Stock"><i data-feather="layers" class="align-self-center menu-icon"></i><span>Shop Stock</span></a>
             </li>
+            <li>
+                <a href="Customer"><i data-feather="heart" class="align-self-center menu-icon"></i><span>Customer</span></a>
+            </li>
         </ul>
     </div>
 </div>
