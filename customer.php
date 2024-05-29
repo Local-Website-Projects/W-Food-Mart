@@ -147,6 +147,12 @@ if (isset($_GET['update'])) {
                                                required>
                                         <label for="floatingInput">Contact No</label>
                                     </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="number" class="form-control" id="floatingInput"
+                                               value="<?php echo $customer_data[0]['discount_percentage']; ?>" name="discount"
+                                               required>
+                                        <label for="floatingInput">Contact No</label>
+                                    </div>
                                     <button type="submit" name="edit_customer" class="btn btn-primary">Edit Customer
                                     </button>
                                 </form>
