@@ -39,6 +39,9 @@
             <li>
                 <a href="Customer"><i data-feather="heart" class="align-self-center menu-icon"></i><span>Customer</span></a>
             </li>
+            <li>
+                <a href="Invoice"><i data-feather="command" class="align-self-center menu-icon"></i><span>Invoice</span></a>
+            </li>
         </ul>
     </div>
 </div>
