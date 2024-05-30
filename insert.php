@@ -131,3 +131,54 @@ if(isset($_POST['add_customer'])){
         ";
     }
 }
+
+
+if(isset($_POST['add_invoice'])){
+    $shop_stocks = $_POST['shop_stock'];
+    $prices = $_POST['price'];
+    $quantities = $_POST['quantity'];
+    $subtotals = $_POST['sub_total'];
+
+    $invoice_id = substr(md5(uniqid()), 0, 6);
+    $check = 0;
+    while ($check == 0){
+        $check_id = $db_handle->numRows("select * from invoice_data where invoice_id='$invoice_id'");
+        if($check_id == 0){
+            $check = 1;
+            break;
+        } else {
+            $invoice_id = substr(md5(uniqid()), 0, 6);
+        }
+    }
+
+    // Loop through the arrays to process the form data
+    for ($i = 0; $i < count($shop_stocks); $i++) {
+        $shop_stock = $shop_stocks[$i];
+        $price = $prices[$i];
+        $quantity = $quantities[$i];
+        $total = $subtotals[$i];
+
+        $product_fetch = $db_handle->runQuery("select * from shop_stock where shop_stock_id='$shop_stock'");
+        $product = $product_fetch[0]['stock_id'];
+
+        $fetch_product_code = $db_handle->runQuery("select product_id from primary_stock where p_stock_id='$product'");
+        $product_id = $fetch_product_code[0]['product_id'];
+        if($fetch_product_code){
+            $insert_product = $db_handle->insertQuery("INSERT INTO `invoice_product`(`product_code`, `selling_price`, `quantity`, `total_price`, `inserted_at`,`invoice_id`) VALUES ('$product_id','$price','$quantity','$total','$inserted_at','$invoice_id')");
+            $new_quantity = $product_fetch[0]['quantity'] - $quantity .'<br>';
+            $update_stock = $db_handle->insertQuery("update shop_stock set quantity='$new_quantity' where shop_stock_id='$shop_stock'");
+        }
+
+    }
+    $customer = $db_handle->checkValue($_POST['customer']);
+    $subtotal = $db_handle->checkValue($_POST['subtotal']);
+    $discount = $db_handle->checkValue($_POST['discount']);
+    $grand_total = $db_handle->checkValue($_POST['grand_total']);
+    $insert_invoice = $db_handle->insertQuery("INSERT INTO `invoice_data`(`invoice_id`, `customer_id`, `sub_total`, `grand_total`, `discount`, `inserted_at`) VALUES ('$invoice_id','$customer','$subtotal','$grand_total','$discount','$inserted_at')");
+    if($insert_invoice){
+        echo "<script>
+alert ('Invoice Created Successfully');
+window.location.href = 'Print_Invoice?id=$invoice_id';
+</script>";
+    }
+}
