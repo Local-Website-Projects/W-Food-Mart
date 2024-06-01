@@ -4,7 +4,7 @@ require_once('config/dbConfig.php');
 $db_handle = new DBController();
 date_default_timezone_set("Asia/Dhaka");
 $inserted_at = date("Y-m-d H:i:s");
-$today = date("Y-m-d");
+$today = date("m-d-Y");
 
 if(!isset($_SESSION['admin'])){
     echo "
@@ -44,21 +44,10 @@ if(!isset($_SESSION['admin'])){
                     <div class="page-title-box">
                         <div class="row">
                             <div class="col">
-                                <h4 class="page-title">Analytics</h4>
+                                <h4 class="page-title">Dashboard</h4>
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="javascript:void(0);">Dastone</a></li>
-                                    <li class="breadcrumb-item active">Dashboard</li>
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);">FoodMart</a></li>
                                 </ol>
-                            </div><!--end col-->
-                            <div class="col-auto align-self-center">
-                                <a href="#" class="btn btn-sm btn-outline-primary" id="Dash_Date">
-                                    <span class="ay-name" id="Day_Name">Today:</span>&nbsp;
-                                    <span class="" id="Select_date">Jan 11</span>
-                                    <i data-feather="calendar" class="align-self-center icon-xs ms-1"></i>
-                                </a>
-                                <a href="#" class="btn btn-sm btn-outline-primary">
-                                    <i data-feather="download" class="align-self-center icon-xs"></i>
-                                </a>
                             </div><!--end col-->
                         </div><!--end row-->
                     </div><!--end page-title-box-->
@@ -66,17 +55,21 @@ if(!isset($_SESSION['admin'])){
             </div><!--end row-->
             <!-- end page title end breadcrumb -->
             <div class="row">
-                <div class="col-lg-9">
+                <div class="col-lg-12">
                     <div class="row justify-content-center">
                         <div class="col-md-6 col-lg-3">
                             <div class="card report-card">
                                 <div class="card-body">
                                     <div class="row d-flex justify-content-center">
                                         <div class="col">
-                                            <p class="text-dark mb-0 fw-semibold">Sessions</p>
-                                            <h3 class="m-0">24k</h3>
+                                            <p class="text-dark mb-0 fw-semibold">Daily Sell</p>
+                                            <h3 class="m-0"><?php
+                                                $fetch_today_sell = $db_handle->runQuery("SELECT SUM(total_price) AS total FROM invoice_product WHERE DATE(inserted_at) = CURDATE();");
+                                                echo $fetch_today_sell[0]['total'];
+                                                ?>
+                                                BDT</h3>
                                             <p class="mb-0 text-truncate text-muted"><span class="text-success"><i
-                                                            class="mdi mdi-trending-up"></i>8.5%</span> New Sessions
+                                                            class="mdi mdi-trending-up"></i></span> New Sells
                                                 Today</p>
                                         </div>
                                         <div class="col-auto align-self-center">
@@ -94,11 +87,14 @@ if(!isset($_SESSION['admin'])){
                                 <div class="card-body">
                                     <div class="row d-flex justify-content-center">
                                         <div class="col">
-                                            <p class="text-dark mb-0 fw-semibold">Avg.Sessions</p>
-                                            <h3 class="m-0">00:18</h3>
+                                            <p class="text-dark mb-0 fw-semibold">Monthly Sell</p>
+                                            <h3 class="m-0"><?php
+                                                $fetch_monthly_sell = $db_handle->runQuery("SELECT SUM(total_price) AS total FROM invoice_product WHERE YEAR(inserted_at) = YEAR(CURDATE()) AND MONTH(inserted_at) = MONTH(CURDATE())");
+                                                echo $fetch_today_sell[0]['total'];
+                                                ?> BDT</h3>
                                             <p class="mb-0 text-truncate text-muted"><span class="text-success"><i
-                                                            class="mdi mdi-trending-up"></i>1.5%</span> Weekly
-                                                Avg.Sessions</p>
+                                                            class="mdi mdi-trending-up"></i></span> Currently Monthly
+                                                Sell</p>
                                         </div>
                                         <div class="col-auto align-self-center">
                                             <div class="report-main-icon bg-light-alt">
@@ -182,71 +178,6 @@ if(!isset($_SESSION['admin'])){
                         </div><!--end card-body-->
                     </div><!--end card-->
                 </div><!--end col-->
-                <div class="col-lg-3">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <h4 class="card-title">Sessions Device</h4>
-                                </div><!--end col-->
-                                <div class="col-auto">
-                                    <div class="dropdown">
-                                        <a href="#" class="btn btn-sm btn-outline-light dropdown-toggle"
-                                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            All<i class="las la-angle-down ms-1"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-end">
-                                            <a class="dropdown-item" href="#">Purchases</a>
-                                            <a class="dropdown-item" href="#">Emails</a>
-                                        </div>
-                                    </div>
-                                </div><!--end col-->
-                            </div>  <!--end row-->
-                        </div><!--end card-header-->
-                        <div class="card-body">
-                            <div class="text-center">
-                                <div id="ana_device" class="apex-charts"></div>
-                                <h6 class="bg-light-alt py-3 px-2 mb-0">
-                                    <i data-feather="calendar" class="align-self-center icon-xs me-1"></i>
-                                    01 January 2020 to 31 December 2020
-                                </h6>
-                            </div>
-                            <div class="table-responsive mt-2">
-                                <table class="table border-dashed mb-0">
-                                    <thead>
-                                    <tr>
-                                        <th>Device</th>
-                                        <th class="text-end">Sassions</th>
-                                        <th class="text-end">Day</th>
-                                        <th class="text-end">Week</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>Dasktops</td>
-                                        <td class="text-end">1843</td>
-                                        <td class="text-end">-3</td>
-                                        <td class="text-end">-12</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tablets</td>
-                                        <td class="text-end">2543</td>
-                                        <td class="text-end">-5</td>
-                                        <td class="text-end">-2</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mobiles</td>
-                                        <td class="text-end">3654</td>
-                                        <td class="text-end">-5</td>
-                                        <td class="text-end">-6</td>
-                                    </tr>
-
-                                    </tbody>
-                                </table><!--end /table-->
-                            </div><!--end /div-->
-                        </div><!--end card-body-->
-                    </div><!--end card-->
-                </div> <!--end col-->
             </div><!--end row-->
 
             <div class="row">
