@@ -42,6 +42,9 @@
             <li>
                 <a href="Invoice"><i data-feather="command" class="align-self-center menu-icon"></i><span>Invoice</span></a>
             </li>
+            <li>
+                <a href="Return-Products"><i data-feather="droplet" class="align-self-center menu-icon"></i><span>Return Products</span></a>
+            </li>
         </ul>
     </div>
 </div>

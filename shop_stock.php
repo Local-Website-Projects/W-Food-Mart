@@ -96,7 +96,7 @@ if(isset($_GET['accept'])){
                                 </thead>
                                 <tbody>
                                 <?php
-                                $fetch_shop_products = $db_handle->runQuery("SELECT shop_stock.quantity, shop_stock_id, product_name,product_code,variety,shop_stock.status FROM `shop_stock`,`product`,`primary_stock` WHERE shop_stock.stock_id = primary_stock.p_stock_id and primary_stock.product_id = product.product_id order by shop_stock_id DESC");
+                                $fetch_shop_products = $db_handle->runQuery("SELECT shop_stock.quantity,shop_stock.sell_quantity, shop_stock_id, product_name,product_code,variety,shop_stock.status FROM `shop_stock`,`product`,`primary_stock` WHERE shop_stock.stock_id = primary_stock.p_stock_id and primary_stock.product_id = product.product_id order by shop_stock_id DESC");
 
                                 for ($i = 0; $i < count($fetch_shop_products); $i++) {
                                     ?>
@@ -105,8 +105,8 @@ if(isset($_GET['accept'])){
                                         <td><?php echo $fetch_shop_products[$i]['product_name']; ?></td>
                                         <td><?php echo $fetch_shop_products[$i]['product_code']; ?></td>
                                         <td><?php echo $fetch_shop_products[$i]['quantity']; ?></td>
-                                        <td>10</td>
-                                        <td>18</td>
+                                        <td><?php echo $fetch_shop_products[$i]['sell_quantity']; ?></td>
+                                        <td><?php echo $fetch_shop_products[$i]['quantity'] - $fetch_shop_products[$i]['sell_quantity'];?></td>
                                         <td class="text-right">
                                             <span class="badge badge-boxed  badge-outline-success">In Stock</span>
                                             <?php

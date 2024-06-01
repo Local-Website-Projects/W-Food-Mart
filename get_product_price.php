@@ -11,7 +11,11 @@ if(!isset($_SESSION['admin'])){
     ";
 }
 $stock_id = $_POST['stockId'];
-$check = $db_handle->runQuery("SELECT selling_cost FROM `primary_stock` where p_stock_id = '$stock_id'");
+
+$fetch_primary_stock_id = $db_handle->runQuery("select * from shop_stock where shop_stock_id = '$stock_id'");
+
+
+$check = $db_handle->runQuery("SELECT selling_cost FROM `primary_stock` where p_stock_id = '{$fetch_primary_stock_id[0]['stock_id']}'");
 if($check){
     echo $check[0]['selling_cost'];
 }
